@@ -23,7 +23,7 @@ function ppr {
 コマンド例: `ppr 'バグの修正' 'https://asana.example.com'`
 
 
-# 現在のブランチの指定ワークフローを実行する
+### 現在のブランチの指定ワークフローを実行する
 ```
 function wkfw {
   gh workflow run $1.yml --ref `get_current_branch`;
