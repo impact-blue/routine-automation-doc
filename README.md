@@ -5,13 +5,14 @@
 
 **前提**
 * [Github CLI](https://cli.github.com/)のインストールが必要です。
+* Github CLI のコマンドの仕様は[リファレンス](https://cli.github.com/manual/)を参照してください。
 * ターミナルで使用するショートカットです。~/.zshrc にコマンドを追加してください。
 
 ### 現在のブランチを取得（以下のコードはこちらのエイリアスが登録されていることが前提となります）
 ```
 alias get_current_branch="git branch | grep '*' | sed -e 's/^\* //'"
 ```
-### 新しいブランチをプッシュ & PR 作成
+### 新しいブランチをプッシュ & Draft の PR 作成
 ```
 function ppr {
   current_branch=`get_current_branch`;
