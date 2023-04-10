@@ -1,16 +1,39 @@
-# このテンプレートの使い方
+# 業務効率化コード集
 
-1. 「Use this template」をクリック
-    - リポジトリの設定は [.github](https://github.com/impact-blue/.github/blob/main/.github/settings.yml) リポジトリと一緒になります
-    - リポジトリはデフォルトで非公開になります
-    - `create-asana-attachment`ワークフローは既に入っているのでプルリクエストの概要に Asana のタスク URL を追加すれば Asana のタスクとプルリクエストを連携できます
-2. `CODEOWNERS`を適切な内容に修正
-    - リポジトリに関わるユーザが変わる可能性があるのでユーザより出来るだけチームを設定するようにしてください
-      - `CODEOWNERS`にチームを追加する場合はリポジトリにもチームを追加しなければなりません（Settings → Collaborators and teams）
-3. `settings.yml`を適切な内容に修正
-    - 修正は基本的に不要です
-    - リポジトリを公開したい場合は`private: true`を削除してください
-    - マージする前に通らなければならないチェック（Chromatic、`eslint`、`prettier`、`tsc`など）がある場合はチェックを`required_status_checks`に追加してください
-4. 環境構築のチェック
-    - マージする前に構築が成功しなければならない環境（Vercel のプレビュー環境など）がある場合は`main`ブランチ設定の「Require deployments to succeed before merging」に環境を追加してください
-      - `settings.yml`で設定ができないので UI 上で設定しなければなりません
+業務効率化のためのコードテンプレートを集めたものです。
+
+## Github
+
+**前提**
+
+- [Github CLI](https://cli.github.com/)のインストールが必要です。
+- Github CLI のコマンドの仕様は[リファレンス](https://cli.github.com/manual/)を参照してください。
+- ターミナルで使用するショートカットです。~/.zshrc にコマンドを追加してください。
+
+### 現在のブランチを取得（以下のコードはこちらのエイリアスが登録されていることが前提となります）
+
+```
+alias get_current_branch="git branch | grep '*' | sed -e 's/^\* //'"
+```
+
+### 新しいブランチをプッシュ & Draft の PR 作成
+
+```
+function ppr {
+  current_branch=`get_current_branch`;
+  git push -u origin $current_branch;
+  gh pr create --draft --assignee @me --title $1 --body $2;
+}
+```
+
+コマンド例: `ppr 'バグの修正' 'https://asana.example.com'`
+
+### 現在のブランチの指定ワークフローを実行する
+
+```
+function wkfw {
+  gh workflow run $1.yml --ref `get_current_branch`;
+}
+```
+
+コマンド例：`wkfw check-codestyle`
