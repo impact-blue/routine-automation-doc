@@ -22,7 +22,7 @@ alias get_current_branch="git branch | grep '*' | sed -e 's/^\* //'"
 function ppr {
   current_branch=`get_current_branch`;
   git push -u origin $current_branch;
-  gh pr create -d -a @me -t $1 -b $2;
+  gh pr create --draft --assignee @me --title $1 --body $2;
 }
 ```
 
