@@ -28,13 +28,13 @@ gh search prs --state=open --review-requested=@me
 - Github CLI のコマンドの仕様は[リファレンス](https://cli.github.com/manual/)を参照してください。
 - ターミナルで使用するショートカットです。~/.zshrc にコマンドを追加してください。
 
-### 現在のブランチを取得（以下のコードはこちらのエイリアスが登録されていることが前提となります）
+#### 現在のブランチを取得（以下のコードはこちらのエイリアスが登録されていることが前提となります）
 
 ```
 alias get_current_branch="git branch | grep '*' | sed -e 's/^\* //'"
 ```
 
-### 新しいブランチをプッシュ & Draft の PR 作成
+#### 新しいブランチをプッシュ & Draft の PR 作成
 
 ```
 function ppr {
@@ -46,7 +46,7 @@ function ppr {
 
 コマンド例: `ppr 'バグの修正' 'https://asana.example.com'`
 
-### 現在のブランチの指定ワークフローを実行する
+#### 現在のブランチの指定ワークフローを実行する
 
 ```
 function wkfw {
